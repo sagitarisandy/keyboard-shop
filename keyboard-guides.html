@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KeebHaus — Build & Sound Guides</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" />
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/all.min.css" />
+  <link rel="stylesheet" href="css/modern.css" />
+  <style>
+    :root { --bg:#f7f9fc; --text:#202635; --muted:#708099; --card:#ffffff; --primary:#2d6cdf; --primary-contrast:#ffffff; --accent:#0e9f6e; --radius:14px; --shadow:0 8px 24px rgba(32,38,53,.08); }
+    body { background: var(--bg); color: var(--text); }
+    .container { max-width: 1000px; }
+    .nav { display:flex; align-items:center; justify-content:space-between; padding:18px 0; }
+    .brand { display:flex; align-items:center; gap:12px; font-weight:700; }
+    .brand i { color: var(--primary); }
+    .nav a { color: var(--text); text-decoration:none; margin-left:18px; }
+    .nav a:hover { color: var(--primary); }
+    .section-card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding:22px; }
+    .guide { background:#fff; border:1px solid #e6edf7; border-radius:12px; padding:16px; }
+    .guide h4 { margin-bottom: 8px; }
+    .steps { list-style: decimal; padding-left: 20px; }
+    .steps li { margin-bottom: 8px; color: var(--text); }
+    .tip { background:#eef8f4; border:1px solid #d7efe3; color:#0b7f56; padding:10px 12px; border-radius:10px; }
+    .grid { display:grid; grid-template-columns: 1fr 1fr; gap:22px; }
+    .footer { color: var(--muted); padding: 24px 0; }
+    @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="nav">
+      <div class="brand">
+        <i class="fas fa-keyboard fa-lg"></i>
+        <span>KeebHaus</span>
+      </div>
+      <div class="links d-none d-md-flex">
+        <a href="keyboard-shop.html">Shop</a>
+        <a href="keyboard-accessories.html">Accessories</a>
+        <a href="keyboard-guides.html">Guides</a>
+      </div>
+    </nav>
+
+    <section class="mb-4 section-card">
+      <h2 class="mb-3">Build Guide: First Custom Keyboard</h2>
+      <div class="guide">
+        <h4>Parts Checklist</h4>
+        <ul class="steps">
+          <li>Case + plate + PCB (hot-swap recommended)</li>
+          <li>Switches (70–90 pcs depending on layout)</li>
+          <li>Keycaps set (profile of your choice)</li>
+          <li>Stabilizers (pre-clipped or screw-in)</li>
+          <li>Cable (USB-C preferred)</li>
+        </ul>
+        <h4>Assembly Steps</h4>
+        <ul class="steps">
+          <li>Install stabilizers on the PCB and test fit.</li>
+          <li>Place the plate over PCB then insert switches to lock alignment.</li>
+          <li>Mount the assembly into the case (gasket or screw as needed).</li>
+          <li>Connect via USB and test keys using a key tester site.</li>
+          <li>Install keycaps and do a final functional check.</li>
+        </ul>
+        <p class="tip"><i class="fas fa-lightbulb"></i> Tip: Test switches in batches to avoid chasing issues later.</p>
+      </div>
+    </section>
+
+    <section class="mb-4 section-card">
+      <h2 class="mb-3">Sound Tuning: Quick Wins</h2>
+      <div class="grid">
+        <div class="guide">
+          <h4>Tape & Foam Mods</h4>
+          <ul class="steps">
+            <li>Apply 1–3 layers of painter's tape to PCB back.</li>
+            <li>Add case foam to reduce hollowness and reverb.</li>
+            <li>Use plate foam to tame ping and improve feel.</li>
+          </ul>
+        </div>
+        <div class="guide">
+          <h4>Switch & Stabilizer Lube</h4>
+          <ul class="steps">
+            <li>Lightly lube stems and rails for linears/tactiles.</li>
+            <li>Grease stabilizer wires to remove rattle.</li>
+            <li>Avoid over-lubing clickies to retain their character.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="tip mt-3"><i class="fas fa-tools"></i> Recommended: Try our Quartz Linear and Amber Tactile switch kits from Accessories.</p>
+    </section>
+
+    <section class="mb-4 section-card">
+      <h2 class="mb-3">Frequently Asked Questions</h2>
+      <div class="guide">
+        <h4>Hot-swap vs Solder?</h4>
+        <p>Hot-swap is beginner-friendly and fast. Soldered PCBs can be cheaper and more durable but require tools and practice.</p>
+        <h4>Best layout for work?</h4>
+        <p>65% or 75% balances compactness with arrow keys and functions. TKL offers full navigation if you need it.</p>
+      </div>
+    </section>
+
+    <footer class="footer text-center">
+      <p>© 2025 KeebHaus. Learn, build, and thock on.</p>
+    </footer>
+  </div>
+
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/materialize.min.js"></script>
+</body>
+</html>

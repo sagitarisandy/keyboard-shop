@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KeebHaus — Mechanical Keyboard Shop</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" />
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/all.min.css" />
+  <link rel="stylesheet" href="css/modern.css" />
+  <style>
+    /* Light theme overrides and page-specific styles */
+    :root {
+      --bg: #f7f9fc;
+      --text: #202635;
+      --muted: #708099;
+      --card: #ffffff;
+      --primary: #2d6cdf;
+      --primary-contrast: #ffffff;
+      --accent: #0e9f6e;
+      --radius: 14px;
+      --shadow: 0 8px 24px rgba(32, 38, 53, 0.08);
+    }
+
+    body { background: var(--bg); color: var(--text); }
+
+    .nav {
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 18px 0;
+    }
+    .brand { display:flex; align-items:center; gap:12px; font-weight:700; }
+    .brand i { color: var(--primary); }
+    .nav a { color: var(--text); text-decoration:none; margin-left:18px; }
+    .nav a:hover { color: var(--primary); }
+
+    .hero {
+      display:grid; grid-template-columns: 1.2fr 1fr; gap:32px; align-items:center;
+      margin-top: 12px; margin-bottom: 28px;
+    }
+    .hero-card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); overflow:hidden; }
+    .hero-card img { width:100%; height: 420px; object-fit: cover; display:block; }
+    .hero-content { padding: 26px; background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); }
+    .hero h1 { font-weight: 800; letter-spacing:-0.02em; }
+    .pill { display:inline-flex; align-items:center; gap:8px; background:#eef3ff; border:1px solid #dbe7ff; border-radius:999px; padding:8px 12px; color:#3554a5; }
+    .cta { display:flex; gap:12px; margin-top:18px; }
+    .btn-solid { background:var(--primary); color:var(--primary-contrast); border:none; border-radius:999px; padding:12px 18px; }
+    .btn-ghost { background:#ffffff; border:1px solid #d7dee9; color:var(--text); border-radius:999px; padding:12px 18px; }
+
+    .section-card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 18px; }
+
+    .grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:22px; }
+    .product { background:#ffffff; border:1px solid #e6edf7; border-radius:12px; overflow:hidden; transition:transform .15s ease, box-shadow .15s ease; }
+    .product:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(32,38,53,0.08); }
+    .product img { width:100%; height:220px; object-fit:cover; display:block; }
+    .product .meta { padding:14px; display:flex; align-items:center; justify-content:space-between; }
+    .price { color: var(--accent); font-weight:700; }
+
+    .features { display:grid; grid-template-columns: repeat(3,1fr); gap:18px; margin-top: 26px; }
+    .feature { background:#ffffff; border:1px solid #e6edf7; border-radius:12px; padding:16px; }
+    .feature i { color: var(--accent); }
+
+    .newsletter { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
+    .newsletter input { border:1px solid #d7dee9; border-radius:10px; padding:12px 14px; }
+
+    .footer { color: var(--muted); padding: 24px 0; }
+
+    @media (max-width: 992px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-card img { height: 300px; }
+      .grid { grid-template-columns: repeat(2, 1fr); }
+      .features { grid-template-columns: repeat(2, 1fr); }
+      .newsletter { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .grid { grid-template-columns: 1fr; }
+      .features { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="nav">
+      <div class="brand">
+        <i class="fas fa-keyboard fa-lg"></i>
+        <span>KeebHaus</span>
+      </div>
+      <div class="links d-none d-md-flex">
+        <a href="keyboard-shop.html">Shop</a>
+        <a href="#kits">Kits</a>
+        <a href="keyboard-accessories.html">Accessories</a>
+        <a href="keyboard-guides.html">Guides</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-card">
+        <img src="https://images.unsplash.com/photo-1585079542154-2758b37a9ab3?q=80&w=1600&auto=format&fit=crop" alt="Keyboard hero" />
+      </div>
+      <div class="hero-content">
+        <div class="pill"><i class="fas fa-bolt"></i> Winter Drop Live</div>
+        <h1 class="mt-3">Find Your Perfect Click</h1>
+        <p class="mb-3">Custom mechanical keyboards, hot-swap PCBs, premium keycaps, and switches curated by enthusiasts. Build your dream keeb with ease.</p>
+        <div class="cta">
+          <a href="#shop" class="btn btn-solid">Shop Keyboards</a>
+          <a href="#kits" class="btn btn-ghost">Build Your Kit</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="shop" class="mb-4 section-card">
+      <h2 class="mb-3">Trending Boards</h2>
+      <div class="grid">
+        <article class="product">
+          <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1200&auto=format&fit=crop" alt="65% keyboard" />
+          <div class="meta">
+            <div>
+              <strong>Atlas 65%</strong>
+              <div class="text-muted" style="color: var(--muted);">Aluminum • Gasket Mount</div>
+            </div>
+            <div class="price">$189</div>
+          </div>
+        </article>
+        <article class="product">
+          <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop" alt="TKL keyboard" />
+          <div class="meta">
+            <div>
+              <strong>Halo TKL</strong>
+              <div class="text-muted" style="color: var(--muted);">Hot-swap • RGB</div>
+            </div>
+            <div class="price">$159</div>
+          </div>
+        </article>
+        <article class="product">
+          <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop" alt="75% keyboard" />
+          <div class="meta">
+            <div>
+              <strong>Nova 75%</strong>
+              <div class="text-muted" style="color: var(--muted);">Tri-mode • PBT Keycaps</div>
+            </div>
+            <div class="price">$179</div>
+          </div>
+        </article>
+        <article class="product">
+          <img src="https://images.unsplash.com/photo-1551117430-0ca6b6a5c0ff?q=80&w=1200&auto=format&fit=crop" alt="60% keyboard" />
+          <div class="meta">
+            <div>
+              <strong>Pixel 60%</strong>
+              <div class="text-muted" style="color: var(--muted);">Compact • Wireless</div>
+            </div>
+            <div class="price">$129</div>
+          </div>
+        </article>
+        <article class="product">
+          <img src="https://images.unsplash.com/photo-1587202372775-98927b5c76a8?q=80&w=1200&auto=format&fit=crop" alt="Full-size keyboard" />
+          <div class="meta">
+            <div>
+              <strong>Aurora 100%</strong>
+              <div class="text-muted" style="color: var(--muted);">Silent • Media Keys</div>
+            </div>
+            <div class="price">$199</div>
+          </div>
+        </article>
+        <article class="product">
+          <img src="https://images.unsplash.com/photo-1541815040-4571b1b2e562?q=80&w=1200&auto=format&fit=crop" alt="Ergonomic keyboard" />
+          <div class="meta">
+            <div>
+              <strong>Ergo Split</strong>
+              <div class="text-muted" style="color: var(--muted);">Ergonomic • Hot-swap</div>
+            </div>
+            <div class="price">$229</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="kits" class="mb-4 section-card">
+      <h2 class="mb-3">Why KeebHaus</h2>
+      <div class="features">
+        <div class="feature">
+          <i class="fas fa-tools"></i>
+          <h5 class="mt-2">Mod-Friendly</h5>
+          <p>Hot-swap sockets, foam kits, and easy-to-open cases for tinkering.</p>
+        </div>
+        <div class="feature">
+          <i class="fas fa-shipping-fast"></i>
+          <h5 class="mt-2">Fast Shipping</h5>
+          <p>Ships in 24–48 hours from regional warehouses worldwide.</p>
+        </div>
+        <div class="feature">
+          <i class="fas fa-headset"></i>
+          <h5 class="mt-2">Enthusiast Support</h5>
+          <p>Real keeb nerds on chat to help you pick parts.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="accessories" class="mb-4 section-card">
+      <h2 class="mb-3">Accessories & Keycaps</h2>
+      <div class="grid">
+        <article class="product">
+          <img src="https://images.unsplash.com/photo-1520333784360-65e96f2a1f97?q=80&w=1200&auto=format&fit=crop" alt="PBT keycaps" />
+          <div class="meta">
+            <div>
+              <strong>PBT Keycaps – Mono</strong>
+              <div class="text-muted" style="color: var(--muted);">Dye-sub • Cherry Profile</div>
+            </div>
+            <div class="price">$79</div>
+          </div>
+        </article>
+        <article class="product">
+          <img src="https://images.unsplash.com/photo-1603899121318-2ec2f6f5f08f?q=80&w=1200&auto=format&fit=crop" alt="Switches" />
+          <div class="meta">
+            <div>
+              <strong>Quartz Switches</strong>
+              <div class="text-muted" style="color: var(--muted);">Linear • 67g • 70 pcs</div>
+            </div>
+            <div class="price">$39</div>
+          </div>
+        </article>
+        <article class="product">
+          <img src="https://images.unsplash.com/photo-1596237563268-838bd3d0ad44?q=80&w=1200&auto=format&fit=crop" alt="Cables" />
+          <div class="meta">
+            <div>
+              <strong>Coiled Aviator Cable</strong>
+              <div class="text-muted" style="color: var(--muted);">USB-C • Paracord</div>
+            </div>
+            <div class="price">$29</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="support" class="mb-4 section-card">
+      <h2 class="mb-3">Help & Guides</h2>
+      <div class="features">
+        <div class="feature">
+          <i class="fas fa-book"></i>
+          <h5 class="mt-2">Build Guide</h5>
+          <p>Step-by-step tutorials to assemble your first custom keyboard.</p>
+        </div>
+        <div class="feature">
+          <i class="fas fa-sliders-h"></i>
+          <h5 class="mt-2">Sound Tuning</h5>
+          <p>Learn about foam, tape mods, and switch lube for that thock.</p>
+        </div>
+        <div class="feature">
+          <i class="fas fa-undo"></i>
+          <h5 class="mt-2">Returns</h5>
+          <p>30-day hassle-free returns on unused items. Conditions apply.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-4 section-card">
+      <h2 class="mb-3">Newsletter</h2>
+      <div class="newsletter">
+        <input type="email" placeholder="Email address" aria-label="Email" />
+        <a href="#" class="btn btn-solid">Subscribe</a>
+      </div>
+    </section>
+
+    <footer class="footer text-center">
+      <p>© 2025 KeebHaus. Built with love and thocks.</p>
+    </footer>
+  </div>
+
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/materialize.min.js"></script>
+  <script>
+    $(function(){
+      $('select').formSelect && $('select').formSelect();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KeebHaus — Accessories & Keycaps</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" />
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/all.min.css" />
+  <link rel="stylesheet" href="css/modern.css" />
+  <style>
+    :root { --bg:#f7f9fc; --text:#202635; --muted:#708099; --card:#ffffff; --primary:#2d6cdf; --primary-contrast:#ffffff; --accent:#0e9f6e; --radius:14px; --shadow:0 8px 24px rgba(32,38,53,.08); }
+    body { background: var(--bg); color: var(--text); }
+    .container { max-width: 1120px; }
+    .nav { display:flex; align-items:center; justify-content:space-between; padding:18px 0; }
+    .brand { display:flex; align-items:center; gap:12px; font-weight:700; }
+    .brand i { color: var(--primary); }
+    .nav a { color: var(--text); text-decoration:none; margin-left:18px; }
+    .nav a:hover { color: var(--primary); }
+    .section-card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding:18px; }
+    .grid { display:grid; grid-template-columns: repeat(3,1fr); gap:22px; }
+    .product { background:#fff; border:1px solid #e6edf7; border-radius:12px; overflow:hidden; transition:transform .15s ease, box-shadow .15s ease; }
+    .product:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(32,38,53,.08); }
+    .product img { width:100%; height:220px; object-fit:cover; display:block; }
+    .product .meta { padding:14px; display:flex; align-items:center; justify-content:space-between; }
+    .price { color: var(--accent); font-weight:700; }
+    .features { display:grid; grid-template-columns: repeat(3,1fr); gap:18px; margin-top:26px; }
+    .feature { background:#fff; border:1px solid #e6edf7; border-radius:12px; padding:16px; }
+    .footer { color: var(--muted); padding: 24px 0; }
+    @media (max-width: 992px) { .grid { grid-template-columns: repeat(2,1fr);} .features { grid-template-columns: repeat(2,1fr);} }
+    @media (max-width: 600px) { .grid, .features { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="nav">
+      <div class="brand">
+        <i class="fas fa-keyboard fa-lg"></i>
+        <span>KeebHaus</span>
+      </div>
+      <div class="links d-none d-md-flex">
+        <a href="keyboard-shop.html">Shop</a>
+        <a href="keyboard-accessories.html">Accessories</a>
+        <a href="keyboard-guides.html">Guides</a>
+      </div>
+    </nav>
+
+    <section class="mb-4 section-card">
+      <h2 class="mb-3">Keycaps</h2>
+      <div class="grid">
+        <article class="product">
+          <img src="https://images.unsplash.com/photo-1520333784360-65e96f2a1f97?q=80&w=1200&auto=format&fit=crop" alt="PBT keycaps" />
+          <div class="meta">
+            <div>
+              <strong>PBT Keycaps – Mono</strong>
+              <div class="text-muted" style="color: var(--muted);">Dye-sub • Cherry Profile</div>
+            </div>
+            <div class="price">$79</div>
+          </div>
+        </article>
+        <article class="product">
+          <img src="https://images.unsplash.com/photo-1607269328162-5a5984b34f61?q=80&w=1200&auto=format&fit=crop" alt="GMK keycaps" />
+          <div class="meta">
+            <div>
+              <strong>ABS Doubleshot – Classic</strong>
+              <div class="text-muted" style="color: var(--muted);">GMK • Cherry Profile</div>
+            </div>
+            <div class="price">$119</div>
+          </div>
+        </article>
+        <article class="product">
+          <img src="https://images.unsplash.com/photo-1603354350317-6f7aaa35fd9b?q=80&w=1200&auto=format&fit=crop" alt="artisan" />
+          <div class="meta">
+            <div>
+              <strong>Artisan – Resin</strong>
+              <div class="text-muted" style="color: var(--muted);">Handmade • Singles</div>
+            </div>
+            <div class="price">$25</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="mb-4 section-card">
+      <h2 class="mb-3">Switches</h2>
+      <div class="grid">
+        <article class="product">
+          <img src="https://images.unsplash.com/photo-1603899121318-2ec2f6f5f08f?q=80&w=1200&auto=format&fit=crop" alt="linear" />
+          <div class="meta">
+            <div>
+              <strong>Quartz Linear</strong>
+              <div class="text-muted" style="color: var(--muted);">67g • 70 pcs</div>
+            </div>
+            <div class="price">$39</div>
+          </div>
+        </article>
+        <article class="product">
+          <img src="https://images.unsplash.com/photo-1605971047345-1582108f81f3?q=80&w=1200&auto=format&fit=crop" alt="tactile" />
+          <div class="meta">
+            <div>
+              <strong>Amber Tactile</strong>
+              <div class="text-muted" style="color: var(--muted);">55g • 70 pcs</div>
+            </div>
+            <div class="price">$42</div>
+          </div>
+        </article>
+        <article class="product">
+          <img src="https://images.unsplash.com/photo-1617683836230-7b1a19f12f0c?q=80&w=1200&auto=format&fit=crop" alt="clicky" />
+          <div class="meta">
+            <div>
+              <strong>Cobalt Clicky</strong>
+              <div class="text-muted" style="color: var(--muted);">60g • 70 pcs</div>
+            </div>
+            <div class="price">$44</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="mb-4 section-card">
+      <h2 class="mb-3">Cables & Tools</h2>
+      <div class="grid">
+        <article class="product">
+          <img src="https://images.unsplash.com/photo-1596237563268-838bd3d0ad44?q=80&w=1200&auto=format&fit=crop" alt="cable" />
+          <div class="meta">
+            <div>
+              <strong>Coiled Aviator Cable</strong>
+              <div class="text-muted" style="color: var(--muted);">USB-C • Paracord</div>
+            </div>
+            <div class="price">$29</div>
+          </div>
+        </article>
+        <article class="product">
+          <img src="https://images.unsplash.com/photo-1589382221605-6fc9c3f6153a?q=80&w=1200&auto=format&fit=crop" alt="lube" />
+          <div class="meta">
+            <div>
+              <strong>Switch Lube Kit</strong>
+              <div class="text-muted" style="color: var(--muted);">Brush • Tray • 5ml</div>
+            </div>
+            <div class="price">$19</div>
+          </div>
+        </article>
+        <article class="product">
+          <img src="https://images.unsplash.com/photo-1617613688156-6bac6b1bc1f8?q=80&w=1200&auto=format&fit=crop" alt="puller" />
+          <div class="meta">
+            <div>
+              <strong>Keycap & Switch Puller</strong>
+              <div class="text-muted" style="color: var(--muted);">Steel • Ergonomic</div>
+            </div>
+            <div class="price">$9</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footer text-center">
+      <p>© 2025 KeebHaus. Accessories for every build.</p>
+    </footer>
+  </div>
+
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/materialize.min.js"></script>
+</body>
+</html>
