@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>KeebHaus — Accessories & Keycaps</title>
+  <title>KeebHaus — Aksesoris & Keycaps</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" />
   <link rel="stylesheet" href="css/bootstrap.min.css" />
   <link rel="stylesheet" href="css/all.min.css" />
@@ -11,12 +11,35 @@
   <style>
     :root { --bg:#f7f9fc; --text:#202635; --muted:#708099; --card:#ffffff; --primary:#2d6cdf; --primary-contrast:#ffffff; --accent:#0e9f6e; --radius:14px; --shadow:0 8px 24px rgba(32,38,53,.08); }
     body { background: var(--bg); color: var(--text); }
-    .container { max-width: 1120px; }
+    .container { max-width: 1000px; }
     .nav { display:flex; align-items:center; justify-content:space-between; padding:18px 0; }
     .brand { display:flex; align-items:center; gap:12px; font-weight:700; }
     .brand i { color: var(--primary); }
-    .nav a { color: var(--text); text-decoration:none; margin-left:18px; }
-    .nav a:hover { color: var(--primary); }
+    .links { display:flex; align-items:center; gap:24px; }
+      .burger { display:none; align-items:center; gap:8px; padding:8px 10px; border-radius:8px; }
+      .burger i { font-size:20px; }
+      .mobile-nav { position: fixed; top:0; right:0; width: 86vw; max-width: 360px; height:100vh; background: var(--card); box-shadow: var(--shadow); border-left:1px solid #e6edf7; transform: translateX(100%); transition: transform .2s ease; z-index: 100; padding:16px; }
+      .mobile-nav.open { transform: translateX(0); }
+      .mobile-nav .item { display:block; padding:10px 12px; border-radius:8px; color: var(--text); }
+      .mobile-nav .item:hover { background:#eef3ff; color: var(--primary); }
+      .mobile-nav .submenu { margin-top:8px; }
+    .nav a { color: var(--text); text-decoration:none; padding:8px 10px; border-radius:8px; transition: color .15s ease, background .15s ease; }
+    .nav a:hover { color: var(--primary); background:#eef3ff; }
+    .menu { position: relative; }
+    .menu-btn { display:inline-flex; align-items:center; gap:8px; cursor:pointer; padding:8px 10px; border-radius:8px; }
+    .menu-btn:hover { background:#eef3ff; }
+    .dropdown { position:absolute; top: calc(100% + 10px); left:50%; transform:translateX(-50%); z-index:30; background:var(--card); border:1px solid #e6edf7; border-radius:12px; box-shadow: var(--shadow); padding:16px; width:900px; display:none; }
+    .dropdown.open { display:block; }
+    .dropdown .row { display:grid; grid-template-columns: 260px 1fr; gap:16px; }
+    .dropdown .sidebar { display:flex; flex-direction:column; gap:10px; }
+    .dropdown .sidebar .group { background:#f7fafc; border:1px solid #e6edf7; border-radius:10px; padding:10px; }
+    .dropdown .sidebar .group h6 { margin:0 0 8px 0; font-weight:700; color:var(--text); }
+    .chip { display:inline-flex; align-items:center; gap:8px; background:#fff; border:1px solid #e6edf7; border-radius:999px; padding:6px 12px; margin: 6px 8px 0 0; font-size:13px; color:var(--text); white-space:nowrap; }
+    .dropdown .grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; }
+    .dropdown .card { background:#fff; border:1px solid #e6edf7; border-radius:12px; padding:10px; transition: box-shadow .15s ease, transform .15s ease; }
+    .dropdown .card:hover { box-shadow: 0 8px 18px rgba(32,38,53,0.08); transform: translateY(-2px); }
+    .dropdown .card img { width:100%; border-radius:8px; }
+    .dropdown .card .label { margin-top:8px; font-weight:600; color:var(--text); }
     .section-card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding:18px; }
     .grid { display:grid; grid-template-columns: repeat(3,1fr); gap:22px; }
     .product { background:#fff; border:1px solid #e6edf7; border-radius:12px; overflow:hidden; transition:transform .15s ease, box-shadow .15s ease; }
@@ -27,8 +50,25 @@
     .features { display:grid; grid-template-columns: repeat(3,1fr); gap:18px; margin-top:26px; }
     .feature { background:#fff; border:1px solid #e6edf7; border-radius:12px; padding:16px; }
     .footer { color: var(--muted); padding: 24px 0; }
-    @media (max-width: 992px) { .grid { grid-template-columns: repeat(2,1fr);} .features { grid-template-columns: repeat(2,1fr);} }
-    @media (max-width: 600px) { .grid, .features { grid-template-columns: 1fr; } }
+    @media (max-width: 992px) {
+      .links { gap:16px; }
+      .burger { display:inline-flex; }
+      .links.d-none.d-md-flex { display:none !important; }
+      .grid { grid-template-columns: repeat(2,1fr);} 
+      .features { grid-template-columns: repeat(2,1fr);} 
+      .dropdown { width: 94vw; left:50%; transform:translateX(-50%); max-height: 70vh; overflow:auto; }
+      .dropdown .row { grid-template-columns: 1fr; }
+      .dropdown .grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 800px) {
+      .links { gap:16px; }
+    }
+    @media (max-width: 600px) { 
+      .links { gap:12px; }
+      .grid, .features { grid-template-columns: 1fr; } 
+      .dropdown { width: 96vw; }
+      .dropdown .grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -38,42 +78,109 @@
         <i class="fas fa-keyboard fa-lg"></i>
         <span>KeebHaus</span>
       </div>
+      <button class="burger d-md-none" id="burgerBtn" aria-label="Buka menu"><i class="fas fa-bars"></i></button>
       <div class="links d-none d-md-flex">
-        <a href="keyboard-shop.html">Shop</a>
-        <a href="keyboard-accessories.html">Accessories</a>
-        <a href="keyboard-guides.html">Guides</a>
+        <a href="keyboard-shop.html">Beranda</a>
+        <div class="menu">
+          <div class="menu-btn" id="produkMenuBtn"><span>Produk</span><i class="fas fa-chevron-down"></i></div>
+          <div class="dropdown" id="produkDropdown" aria-label="Menu Produk">
+            <div class="row">
+              <aside class="sidebar">
+                <div class="group">
+                  <h6>Keyboard</h6>
+                  <div>
+                    <span class="chip">Q</span>
+                    <span class="chip">K</span>
+                    <span class="chip">V</span>
+                    <span class="chip">HE Series</span>
+                  </div>
+                </div>
+                <div class="group">
+                  <h6>Mice</h6>
+                  <div>
+                    <span class="chip">M Series</span>
+                    <span class="chip">G Series</span>
+                  </div>
+                </div>
+                <div class="group">
+                  <h6>Tipe</h6>
+                  <div>
+                    <span class="chip"><img src="img/keyboard/Icon-2.4GHz_Wireless.svg" alt="wireless" style="height:16px;"> 2.4 GHz Wireless</span>
+                    <span class="chip"><img src="img/keyboard/Icon-Compact.svg" alt="compact" style="height:16px;"> Compact</span>
+                    <span class="chip"><img src="img/keyboard/Icon-Ergonomic_Layout.svg" alt="ergonomic" style="height:16px;"> Ergonomis</span>
+                    <span class="chip"><img src="img/keyboard/Icon-Full_Metal_ecbfada4-3cea-4956-9eb1-2cd9458601e8.svg" alt="full metal" style="height:16px;"> Full Metal</span>
+                  </div>
+                </div>
+              </aside>
+              <div>
+                <div class="section-card" style="box-shadow:none; border: none; padding:0;">
+                  <h5 style="margin:0 0 8px 0;">Semua Produk</h5>
+                  <div class="grid">
+                    <div class="card">
+                      <img src="img/keyboard/Q6Max-black_f3f6c2e9-5aa0-44d9-a1cc-02bf9f4128e8_400x400.png" alt="100%" />
+                      <div class="label">100%</div>
+                    </div>
+                    <div class="card">
+                      <img src="img/keyboard/K4-Max_400x400.png" alt="96%" />
+                      <div class="label">96%</div>
+                    </div>
+                    <div class="card">
+                      <img src="img/keyboard/K3_Max_400x400.png" alt="75%" />
+                      <div class="label">75%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a href="keyboard-accessories.html">Aksesoris</a>
+        <a href="keyboard-guides.html">Panduan</a>
       </div>
     </nav>
+    <aside class="mobile-nav" id="mobileNav" aria-label="Menu Mobile">
+      <a href="keyboard-shop.html" class="item">Beranda</a>
+      <div>
+        <div class="item" id="mobileProdukBtn">Produk <i class="fas fa-chevron-down" style="float:right"></i></div>
+        <div class="submenu" id="mobileProdukMenu" style="display:none;">
+          <a class="item" href="#">Keyboard</a>
+          <a class="item" href="#">Mice</a>
+          <a class="item" href="#">Aksesoris</a>
+        </div>
+      </div>
+      <a href="keyboard-accessories.html" class="item">Aksesoris</a>
+      <a href="keyboard-guides.html" class="item">Panduan</a>
+    </aside>
 
     <section class="mb-4 section-card">
       <h2 class="mb-3">Keycaps</h2>
       <div class="grid">
         <article class="product">
-          <img src="https://images.unsplash.com/photo-1520333784360-65e96f2a1f97?q=80&w=1200&auto=format&fit=crop" alt="PBT keycaps" />
+          <img src="img/keyboard/Double_shot_PBT_OSA_Full_Set_Keycap_Set_400x400.png" alt="PBT keycaps" />
           <div class="meta">
             <div>
-              <strong>PBT Keycaps – Mono</strong>
-              <div class="text-muted" style="color: var(--muted);">Dye-sub • Cherry Profile</div>
+              <strong>Keycaps PBT – Mono</strong>
+              <div class="text-muted" style="color: var(--muted);">Dye-sub • Profil Cherry</div>
             </div>
             <div class="price">$79</div>
           </div>
         </article>
         <article class="product">
-          <img src="https://images.unsplash.com/photo-1607269328162-5a5984b34f61?q=80&w=1200&auto=format&fit=crop" alt="GMK keycaps" />
+          <img src="img/keyboard/Double_shot_ABS_Full_set_400x400.png" alt="ABS Doubleshot" />
           <div class="meta">
             <div>
-              <strong>ABS Doubleshot – Classic</strong>
-              <div class="text-muted" style="color: var(--muted);">GMK • Cherry Profile</div>
+              <strong>ABS Doubleshot – Klasik</strong>
+              <div class="text-muted" style="color: var(--muted);">GMK • Profil Cherry</div>
             </div>
             <div class="price">$119</div>
           </div>
         </article>
         <article class="product">
-          <img src="https://images.unsplash.com/photo-1603354350317-6f7aaa35fd9b?q=80&w=1200&auto=format&fit=crop" alt="artisan" />
+          <img src="img/keyboard/Big_Kitty_Paw_Key-menu.png" alt="artisan" />
           <div class="meta">
             <div>
               <strong>Artisan – Resin</strong>
-              <div class="text-muted" style="color: var(--muted);">Handmade • Singles</div>
+              <div class="text-muted" style="color: var(--muted);">Buatan tangan • Satuan</div>
             </div>
             <div class="price">$25</div>
           </div>
@@ -82,10 +189,10 @@
     </section>
 
     <section class="mb-4 section-card">
-      <h2 class="mb-3">Switches</h2>
+      <h2 class="mb-3">Switch</h2>
       <div class="grid">
         <article class="product">
-          <img src="https://images.unsplash.com/photo-1603899121318-2ec2f6f5f08f?q=80&w=1200&auto=format&fit=crop" alt="linear" />
+          <img src="img/keyboard/Keychron-K-Pro-Red-Switch.jpg" alt="linear" />
           <div class="meta">
             <div>
               <strong>Quartz Linear</strong>
@@ -95,7 +202,7 @@
           </div>
         </article>
         <article class="product">
-          <img src="https://images.unsplash.com/photo-1605971047345-1582108f81f3?q=80&w=1200&auto=format&fit=crop" alt="tactile" />
+          <img src="img/keyboard/Keychron-K-Pro-Brown-Switch.jpg" alt="tactile" />
           <div class="meta">
             <div>
               <strong>Amber Tactile</strong>
@@ -105,7 +212,7 @@
           </div>
         </article>
         <article class="product">
-          <img src="https://images.unsplash.com/photo-1617683836230-7b1a19f12f0c?q=80&w=1200&auto=format&fit=crop" alt="clicky" />
+          <img src="img/keyboard/Keychron-K-Pro-Blue-Switch.jpg" alt="clicky" />
           <div class="meta">
             <div>
               <strong>Cobalt Clicky</strong>
@@ -118,34 +225,34 @@
     </section>
 
     <section class="mb-4 section-card">
-      <h2 class="mb-3">Cables & Tools</h2>
+      <h2 class="mb-3">Kabel & Peralatan</h2>
       <div class="grid">
         <article class="product">
-          <img src="https://images.unsplash.com/photo-1596237563268-838bd3d0ad44?q=80&w=1200&auto=format&fit=crop" alt="cable" />
+          <img src="img/keyboard/Keychron-custom-coiled-aviator-USB-type-C-cable-Yellow.jpg" alt="cable" />
           <div class="meta">
             <div>
-              <strong>Coiled Aviator Cable</strong>
+              <strong>Kabel Koil Aviator</strong>
               <div class="text-muted" style="color: var(--muted);">USB-C • Paracord</div>
             </div>
             <div class="price">$29</div>
           </div>
         </article>
         <article class="product">
-          <img src="https://images.unsplash.com/photo-1589382221605-6fc9c3f6153a?q=80&w=1200&auto=format&fit=crop" alt="lube" />
+          <img src="img/keyboard/Switch_Tester_400x400.png" alt="lube kit" />
           <div class="meta">
             <div>
-              <strong>Switch Lube Kit</strong>
-              <div class="text-muted" style="color: var(--muted);">Brush • Tray • 5ml</div>
+              <strong>Kit Pelumas Switch</strong>
+              <div class="text-muted" style="color: var(--muted);">Kuas • Tray • 5ml</div>
             </div>
             <div class="price">$19</div>
           </div>
         </article>
         <article class="product">
-          <img src="https://images.unsplash.com/photo-1617613688156-6bac6b1bc1f8?q=80&w=1200&auto=format&fit=crop" alt="puller" />
+          <img src="img/keyboard/Switch_and_keycap_puller_400x400.png" alt="puller" />
           <div class="meta">
             <div>
               <strong>Keycap & Switch Puller</strong>
-              <div class="text-muted" style="color: var(--muted);">Steel • Ergonomic</div>
+              <div class="text-muted" style="color: var(--muted);">Baja • Ergonomis</div>
             </div>
             <div class="price">$9</div>
           </div>
@@ -154,11 +261,65 @@
     </section>
 
     <footer class="footer text-center">
-      <p>© 2025 KeebHaus. Accessories for every build.</p>
+      <p>© 2025 KeebHaus. Aksesoris untuk setiap rakitan.</p>
     </footer>
   </div>
 
   <script src="js/jquery-3.3.1.min.js"></script>
   <script src="js/materialize.min.js"></script>
+  <script>
+    $(function(){
+      var btn = document.getElementById('produkMenuBtn');
+      var dd = document.getElementById('produkDropdown');
+      var burger = document.getElementById('burgerBtn');
+      var mobileNav = document.getElementById('mobileNav');
+      var mobileProdukBtn = document.getElementById('mobileProdukBtn');
+      var mobileProdukMenu = document.getElementById('mobileProdukMenu');
+      function repositionDropdown(){
+        if(!btn || !dd) return;
+        dd.style.left = '50%';
+        dd.style.right = '';
+        dd.style.transform = 'translateX(-50%)';
+        var rect = dd.getBoundingClientRect();
+        var vw = window.innerWidth;
+        var margin = 16;
+        var overflowRight = rect.right + margin > vw;
+        var overflowLeft = rect.left - margin < 0;
+        var btnRect = btn.getBoundingClientRect();
+        if(overflowRight){
+          dd.style.transform = '';
+          dd.style.left = 'auto';
+          dd.style.right = Math.max(0, vw - btnRect.right + margin) + 'px';
+        } else if(overflowLeft){
+          dd.style.transform = '';
+          dd.style.left = margin + 'px';
+          dd.style.right = '';
+        }
+      }
+      btn && btn.addEventListener('click', function(){
+        dd.classList.toggle('open');
+        if(dd.classList.contains('open')) setTimeout(repositionDropdown, 0);
+      });
+      burger && burger.addEventListener('click', function(){
+        mobileNav.classList.toggle('open');
+      });
+      mobileProdukBtn && mobileProdukBtn.addEventListener('click', function(){
+        if(!mobileProdukMenu) return;
+        var show = mobileProdukMenu.style.display === 'none';
+        mobileProdukMenu.style.display = show ? 'block' : 'none';
+      });
+      window.addEventListener('resize', function(){ if(dd && dd.classList.contains('open')) repositionDropdown(); });
+      document.addEventListener('click', function(e){
+        if(dd){
+          var inside = dd.contains(e.target) || (btn && btn.contains(e.target));
+          if(!inside) dd.classList.remove('open');
+        }
+        if(mobileNav){
+          var insideMobile = mobileNav.contains(e.target) || (burger && burger.contains(e.target));
+          if(!insideMobile) mobileNav.classList.remove('open');
+        }
+      });
+    });
+  </script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>KeebHaus — Mechanical Keyboard Shop</title>
+  <title>KeebHaus — Toko Keyboard Mekanik</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" />
   <link rel="stylesheet" href="css/bootstrap.min.css" />
   <link rel="stylesheet" href="css/all.min.css" />
@@ -30,8 +30,51 @@
     }
     .brand { display:flex; align-items:center; gap:12px; font-weight:700; }
     .brand i { color: var(--primary); }
-    .nav a { color: var(--text); text-decoration:none; margin-left:18px; }
-    .nav a:hover { color: var(--primary); }
+    .links { display:flex; align-items:center; gap:24px; }
+    .burger { display:none; align-items:center; gap:8px; padding:8px 10px; border-radius:8px; }
+    .burger i { font-size:20px; }
+    .mobile-nav { position: fixed; top:0; right:0; width: 86vw; max-width: 360px; height:100vh; background: var(--card); box-shadow: var(--shadow); border-left:1px solid #e6edf7; transform: translateX(100%); transition: transform .2s ease; z-index: 100; padding:16px; }
+    .mobile-nav.open { transform: translateX(0); }
+    .mobile-nav .item { display:block; padding:10px 12px; border-radius:8px; color: var(--text); }
+    .mobile-nav .item:hover { background:#eef3ff; color: var(--primary); }
+    .mobile-nav .submenu { margin-top:8px; padding-left:8px; }
+    .nav a { color: var(--text); text-decoration:none; padding:8px 10px; border-radius:8px; transition: color .15s ease, background .15s ease; }
+    .nav a:hover { color: var(--primary); background:#eef3ff; }
+
+    /* Dropdown Produk */
+    .menu { position: relative; }
+    .menu-btn { display:inline-flex; align-items:center; gap:8px; cursor:pointer; padding:8px 10px; border-radius:8px; }
+    .menu-btn i { color: var(--text); transition: transform .15s ease; }
+    .menu-btn:hover { background:#eef3ff; }
+    .menu-btn:hover i { transform: translateY(1px); }
+    .dropdown { position:absolute; top: calc(100% + 10px); left:50%; transform:translateX(-50%); z-index:30; background:var(--card); border:1px solid #e6edf7; border-radius:12px; box-shadow: var(--shadow); padding:16px; width:900px; display:none; }
+    .dropdown.open { display:block; }
+    .dropdown .row { display:grid; grid-template-columns: 260px 1fr; gap:16px; }
+    .dropdown .sidebar { display:flex; flex-direction:column; gap:10px; }
+    .dropdown .sidebar .group { background:#f7fafc; border:1px solid #e6edf7; border-radius:12px; padding:12px; }
+    .dropdown .sidebar .group h6 { margin:0 0 8px 0; font-weight:700; color:var(--text); }
+    .chip { display:inline-flex; align-items:center; gap:8px; background:#fff; border:1px solid #e6edf7; border-radius:999px; padding:6px 12px; margin: 6px 8px 0 0; font-size:13px; color:var(--text); white-space:nowrap; }
+    .chip:hover { background:#f7fafc; }
+    .dropdown .grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; }
+    .dropdown .card { background:#fff; border:1px solid #e6edf7; border-radius:12px; padding:10px; transition: box-shadow .15s ease, transform .15s ease; }
+    .dropdown .card img { width:100%; border-radius:8px; }
+    .dropdown .card .label { margin-top:8px; font-weight:600; color:var(--text); }
+    .dropdown .card:hover { box-shadow: 0 8px 18px rgba(32,38,53,0.08); transform: translateY(-2px); }
+
+    @media (max-width: 992px) {
+      .links { gap:16px; }
+      .burger { display:inline-flex; }
+      .links.d-none.d-md-flex { display:none !important; }
+      .dropdown { width: 94vw; left:50%; transform:translateX(-50%); max-height: 70vh; overflow:auto; }
+      .dropdown .row { grid-template-columns: 1fr; }
+      .dropdown .grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .links { gap:12px; }
+      .menu-btn span { display:inline; }
+      .dropdown { width: 96vw; }
+      .dropdown .grid { grid-template-columns: 1fr; }
+    }
 
     .hero {
       display:grid; grid-template-columns: 1.2fr 1fr; gap:32px; align-items:center;
@@ -84,44 +127,126 @@
         <i class="fas fa-keyboard fa-lg"></i>
         <span>KeebHaus</span>
       </div>
+      <button class="burger d-md-none" id="burgerBtn" aria-label="Buka menu"><i class="fas fa-bars"></i></button>
       <div class="links d-none d-md-flex">
-        <a href="keyboard-shop.html">Shop</a>
-        <a href="#kits">Kits</a>
-        <a href="keyboard-accessories.html">Accessories</a>
-        <a href="keyboard-guides.html">Guides</a>
+        <a href="keyboard-shop.html">Beranda</a>
+        <div class="menu">
+          <div class="menu-btn" id="produkMenuBtn"><span>Produk</span><i class="fas fa-chevron-down"></i></div>
+          <div class="dropdown" id="produkDropdown" aria-label="Menu Produk">
+            <div class="row">
+              <aside class="sidebar">
+                <div class="group">
+                  <h6>Keyboard</h6>
+                  <div>
+                    <span class="chip">Q</span>
+                    <span class="chip">K</span>
+                    <span class="chip">V</span>
+                    <span class="chip">HE Series</span>
+                  </div>
+                </div>
+                <div class="group">
+                  <h6>Mice</h6>
+                  <div>
+                    <span class="chip">M Series</span>
+                    <span class="chip">G Series</span>
+                  </div>
+                </div>
+                <div class="group">
+                  <h6>Tipe</h6>
+                  <div>
+                    <span class="chip"><img src="img/keyboard/Icon-2.4GHz_Wireless.svg" alt="wireless" style="height:16px;"> 2.4 GHz Wireless</span>
+                    <span class="chip"><img src="img/keyboard/Icon-Compact.svg" alt="compact" style="height:16px;"> Compact</span>
+                    <span class="chip"><img src="img/keyboard/Icon-Ergonomic_Layout.svg" alt="ergonomic" style="height:16px;"> Ergonomis</span>
+                    <span class="chip"><img src="img/keyboard/Icon-Full_Metal_ecbfada4-3cea-4956-9eb1-2cd9458601e8.svg" alt="full metal" style="height:16px;"> Full Metal</span>
+                    <span class="chip"><img src="img/keyboard/Icon-Hot-Swappable.svg" alt="hotswap" style="height:16px;"> Hot Swappable</span>
+                    <span class="chip"><img src="img/keyboard/Icon-ISO_Layout.svg" alt="iso" style="height:16px;"> ISO Layout</span>
+                    <span class="chip"><img src="img/keyboard/Icon-Magetic_Switch.svg" alt="magnetic" style="height:16px;"> Magnetic Switch</span>
+                    <span class="chip"><img src="img/keyboard/Icon-QMK_Launcher.svg" alt="qmk" style="height:16px;"> QMK Launcher</span>
+                  </div>
+                </div>
+              </aside>
+              <div>
+                <div class="section-card" style="box-shadow:none; border: none; padding:0;">
+                  <h5 style="margin:0 0 8px 0;">Semua Produk</h5>
+                  <div class="grid">
+                    <div class="card">
+                      <img src="img/keyboard/Q6Max-black_f3f6c2e9-5aa0-44d9-a1cc-02bf9f4128e8_400x400.png" alt="100%" />
+                      <div class="label">100%</div>
+                    </div>
+                    <div class="card">
+                      <img src="img/keyboard/K4-Max_400x400.png" alt="96%" />
+                      <div class="label">96%</div>
+                    </div>
+                    <div class="card">
+                      <img src="img/keyboard/K3_Max_400x400.png" alt="75%" />
+                      <div class="label">75%</div>
+                    </div>
+                    <div class="card">
+                      <img src="img/keyboard/K2_Max_8bc9da9d-f49c-4e3d-b5be-a297634f730d_400x400.png" alt="80%" />
+                      <div class="label">80%</div>
+                    </div>
+                    <div class="card">
+                      <img src="img/keyboard/K6_Pro_400x400.png" alt="60%" />
+                      <div class="label">60%</div>
+                    </div>
+                    <div class="card">
+                      <img src="img/keyboard/K1_Pro_400x400.png" alt="Slim" />
+                      <div class="label">Slim</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a href="keyboard-accessories.html">Aksesoris</a>
+        <a href="keyboard-guides.html">Panduan</a>
       </div>
     </nav>
+    <aside class="mobile-nav" id="mobileNav" aria-label="Menu Mobile">
+      <a href="keyboard-shop.html" class="item">Beranda</a>
+      <div>
+        <div class="item" id="mobileProdukBtn">Produk <i class="fas fa-chevron-down" style="float:right"></i></div>
+        <div class="submenu" id="mobileProdukMenu" style="display:none;">
+          <a class="item" href="#">Keyboard</a>
+          <a class="item" href="#">Mice</a>
+          <a class="item" href="#">Aksesoris</a>
+        </div>
+      </div>
+      <a href="keyboard-accessories.html" class="item">Aksesoris</a>
+      <a href="keyboard-guides.html" class="item">Panduan</a>
+    </aside>
 
     <section class="hero">
       <div class="hero-card">
-        <img src="https://images.unsplash.com/photo-1585079542154-2758b37a9ab3?q=80&w=1600&auto=format&fit=crop" alt="Keyboard hero" />
+        <img src="img/keyboard/Keyboard-Finder-Banner-Desktop.jpg" alt="Keyboard hero" />
       </div>
       <div class="hero-content">
-        <div class="pill"><i class="fas fa-bolt"></i> Winter Drop Live</div>
-        <h1 class="mt-3">Find Your Perfect Click</h1>
-        <p class="mb-3">Custom mechanical keyboards, hot-swap PCBs, premium keycaps, and switches curated by enthusiasts. Build your dream keeb with ease.</p>
+        <div class="pill"><i class="fas fa-bolt"></i> Rilis Musim Dingin</div>
+        <h1 class="mt-3">Temukan Klik yang Sempurna</h1>
+        <p class="mb-3">Keyboard mekanik kustom, PCB hot-swap, keycaps premium, dan switch pilihan para penggemar. Bangun keeb impianmu dengan mudah.</p>
         <div class="cta">
-          <a href="#shop" class="btn btn-solid">Shop Keyboards</a>
-          <a href="#kits" class="btn btn-ghost">Build Your Kit</a>
+          <a href="#shop" class="btn btn-solid">Belanja Keyboard</a>
+          <a href="#kits" class="btn btn-ghost">Bangun Paketmu</a>
         </div>
       </div>
     </section>
 
     <section id="shop" class="mb-4 section-card">
-      <h2 class="mb-3">Trending Boards</h2>
+      <h2 class="mb-3">Keyboard Tren</h2>
       <div class="grid">
         <article class="product">
-          <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1200&auto=format&fit=crop" alt="65% keyboard" />
+          <img src="img/keyboard/K3-Max-Wireless-Mechanical-Keyboard-Red-Switch-White.jpg" alt="65% keyboard" />
           <div class="meta">
             <div>
               <strong>Atlas 65%</strong>
-              <div class="text-muted" style="color: var(--muted);">Aluminum • Gasket Mount</div>
+              <div class="text-muted" style="color: var(--muted);">Aluminium • Gasket Mount</div>
             </div>
             <div class="price">$189</div>
           </div>
         </article>
         <article class="product">
-          <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop" alt="TKL keyboard" />
+          <img src="img/keyboard/Keychron-Q6-Max-QMK-VIA-Wireless-Custom-Mechanical-Keyboard-100-Percent-Layout-Aluminum-Black-Side-Printed-PBT-Keycaps-for-Mac-Windows-Linux.jpg" alt="TKL keyboard" />
           <div class="meta">
             <div>
               <strong>Halo TKL</strong>
@@ -131,41 +256,41 @@
           </div>
         </article>
         <article class="product">
-          <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop" alt="75% keyboard" />
+          <img src="img/keyboard/K2_Max_8bc9da9d-f49c-4e3d-b5be-a297634f730d_400x400.png" alt="75% keyboard" />
           <div class="meta">
             <div>
               <strong>Nova 75%</strong>
-              <div class="text-muted" style="color: var(--muted);">Tri-mode • PBT Keycaps</div>
+              <div class="text-muted" style="color: var(--muted);">Tri-mode • Keycaps PBT</div>
             </div>
             <div class="price">$179</div>
           </div>
         </article>
         <article class="product">
-          <img src="https://images.unsplash.com/photo-1551117430-0ca6b6a5c0ff?q=80&w=1200&auto=format&fit=crop" alt="60% keyboard" />
+          <img src="img/keyboard/K6_nl_400x400.png" alt="60% keyboard" />
           <div class="meta">
             <div>
               <strong>Pixel 60%</strong>
-              <div class="text-muted" style="color: var(--muted);">Compact • Wireless</div>
+              <div class="text-muted" style="color: var(--muted);">Ringkas • Nirkabel</div>
             </div>
             <div class="price">$129</div>
           </div>
         </article>
         <article class="product">
-          <img src="https://images.unsplash.com/photo-1587202372775-98927b5c76a8?q=80&w=1200&auto=format&fit=crop" alt="Full-size keyboard" />
+          <img src="img/keyboard/K5Max_400x400.png" alt="Full-size keyboard" />
           <div class="meta">
             <div>
               <strong>Aurora 100%</strong>
-              <div class="text-muted" style="color: var(--muted);">Silent • Media Keys</div>
+              <div class="text-muted" style="color: var(--muted);">Senyal • Tombol Media</div>
             </div>
             <div class="price">$199</div>
           </div>
         </article>
         <article class="product">
-          <img src="https://images.unsplash.com/photo-1541815040-4571b1b2e562?q=80&w=1200&auto=format&fit=crop" alt="Ergonomic keyboard" />
+          <img src="img/keyboard/Icon-Ergonomic_Layout.svg" alt="Ergonomic keyboard" />
           <div class="meta">
             <div>
               <strong>Ergo Split</strong>
-              <div class="text-muted" style="color: var(--muted);">Ergonomic • Hot-swap</div>
+              <div class="text-muted" style="color: var(--muted);">Ergonomis • Hot-swap</div>
             </div>
             <div class="price">$229</div>
           </div>
@@ -174,54 +299,54 @@
     </section>
 
     <section id="kits" class="mb-4 section-card">
-      <h2 class="mb-3">Why KeebHaus</h2>
+      <h2 class="mb-3">Kenapa KeebHaus</h2>
       <div class="features">
         <div class="feature">
           <i class="fas fa-tools"></i>
-          <h5 class="mt-2">Mod-Friendly</h5>
-          <p>Hot-swap sockets, foam kits, and easy-to-open cases for tinkering.</p>
+          <h5 class="mt-2">Mudah Dimodifikasi</h5>
+          <p>Socket hot-swap, kit foam, dan casing mudah dibuka untuk oprek.</p>
         </div>
         <div class="feature">
           <i class="fas fa-shipping-fast"></i>
-          <h5 class="mt-2">Fast Shipping</h5>
-          <p>Ships in 24–48 hours from regional warehouses worldwide.</p>
+          <h5 class="mt-2">Pengiriman Cepat</h5>
+          <p>Kirim dalam 24–48 jam dari gudang regional di seluruh dunia.</p>
         </div>
         <div class="feature">
           <i class="fas fa-headset"></i>
-          <h5 class="mt-2">Enthusiast Support</h5>
-          <p>Real keeb nerds on chat to help you pick parts.</p>
+          <h5 class="mt-2">Dukungan Antusias</h5>
+          <p>Tim pecinta keeb siap bantu pilih komponen via chat.</p>
         </div>
       </div>
     </section>
 
     <section id="accessories" class="mb-4 section-card">
-      <h2 class="mb-3">Accessories & Keycaps</h2>
+      <h2 class="mb-3">Aksesoris & Keycaps</h2>
       <div class="grid">
         <article class="product">
-          <img src="https://images.unsplash.com/photo-1520333784360-65e96f2a1f97?q=80&w=1200&auto=format&fit=crop" alt="PBT keycaps" />
+          <img src="img/keyboard/Double_shot_PBT_OSA_Full_Set_Keycap_Set_400x400.png" alt="PBT keycaps" />
           <div class="meta">
             <div>
-              <strong>PBT Keycaps – Mono</strong>
-              <div class="text-muted" style="color: var(--muted);">Dye-sub • Cherry Profile</div>
+              <strong>Keycaps PBT – Mono</strong>
+              <div class="text-muted" style="color: var(--muted);">Dye-sub • Profil Cherry</div>
             </div>
             <div class="price">$79</div>
           </div>
         </article>
         <article class="product">
-          <img src="https://images.unsplash.com/photo-1603899121318-2ec2f6f5f08f?q=80&w=1200&auto=format&fit=crop" alt="Switches" />
+          <img src="img/keyboard/Keychron-K-Pro-Red-Switch.jpg" alt="Switches" />
           <div class="meta">
             <div>
-              <strong>Quartz Switches</strong>
+              <strong>Switch Quartz</strong>
               <div class="text-muted" style="color: var(--muted);">Linear • 67g • 70 pcs</div>
             </div>
             <div class="price">$39</div>
           </div>
         </article>
         <article class="product">
-          <img src="https://images.unsplash.com/photo-1596237563268-838bd3d0ad44?q=80&w=1200&auto=format&fit=crop" alt="Cables" />
+          <img src="img/keyboard/Keychron-custom-coiled-aviator-USB-type-C-cable-Light-Blue.jpg" alt="Cables" />
           <div class="meta">
             <div>
-              <strong>Coiled Aviator Cable</strong>
+              <strong>Kabel Koil Aviator</strong>
               <div class="text-muted" style="color: var(--muted);">USB-C • Paracord</div>
             </div>
             <div class="price">$29</div>
@@ -231,22 +356,22 @@
     </section>
 
     <section id="support" class="mb-4 section-card">
-      <h2 class="mb-3">Help & Guides</h2>
+      <h2 class="mb-3">Bantuan & Panduan</h2>
       <div class="features">
         <div class="feature">
           <i class="fas fa-book"></i>
-          <h5 class="mt-2">Build Guide</h5>
-          <p>Step-by-step tutorials to assemble your first custom keyboard.</p>
+          <h5 class="mt-2">Panduan Rakitan</h5>
+          <p>Tutorial langkah demi langkah merakit keyboard kustom pertamamu.</p>
         </div>
         <div class="feature">
           <i class="fas fa-sliders-h"></i>
-          <h5 class="mt-2">Sound Tuning</h5>
-          <p>Learn about foam, tape mods, and switch lube for that thock.</p>
+          <h5 class="mt-2">Tuning Suara</h5>
+          <p>Pelajari foam, tape mod, dan pelumas switch untuk suara thock.</p>
         </div>
         <div class="feature">
           <i class="fas fa-undo"></i>
-          <h5 class="mt-2">Returns</h5>
-          <p>30-day hassle-free returns on unused items. Conditions apply.</p>
+          <h5 class="mt-2">Pengembalian</h5>
+          <p>Pengembalian mudah 30 hari untuk barang belum terpakai. Syarat berlaku.</p>
         </div>
       </div>
     </section>
@@ -254,13 +379,13 @@
     <section class="mb-4 section-card">
       <h2 class="mb-3">Newsletter</h2>
       <div class="newsletter">
-        <input type="email" placeholder="Email address" aria-label="Email" />
-        <a href="#" class="btn btn-solid">Subscribe</a>
+        <input type="email" placeholder="Alamat email" aria-label="Email" />
+        <a href="#" class="btn btn-solid">Langganan</a>
       </div>
     </section>
 
     <footer class="footer text-center">
-      <p>© 2025 KeebHaus. Built with love and thocks.</p>
+      <p>© 2025 KeebHaus. Dibangun dengan cinta dan thock.</p>
     </footer>
   </div>
 
@@ -269,6 +394,66 @@
   <script>
     $(function(){
       $('select').formSelect && $('select').formSelect();
+      // Toggle dropdown Produk
+      var btn = document.getElementById('produkMenuBtn');
+      var dd = document.getElementById('produkDropdown');
+      var burger = document.getElementById('burgerBtn');
+      var mobileNav = document.getElementById('mobileNav');
+      var mobileProdukBtn = document.getElementById('mobileProdukBtn');
+      var mobileProdukMenu = document.getElementById('mobileProdukMenu');
+      function repositionDropdown(){
+        if(!btn || !dd) return;
+        // Reset to centered default
+        dd.style.left = '50%';
+        dd.style.right = '';
+        dd.style.transform = 'translateX(-50%)';
+        // Compute viewport collision and adjust
+        var rect = dd.getBoundingClientRect();
+        var vw = window.innerWidth;
+        var margin = 16; // keep safe margin from edges
+        var overflowRight = rect.right + margin > vw;
+        var overflowLeft = rect.left - margin < 0;
+        var btnRect = btn.getBoundingClientRect();
+        if(overflowRight){
+          // Anchor from right side of button to keep inside viewport
+          dd.style.transform = '';
+          dd.style.left = 'auto';
+          dd.style.right = Math.max(0, vw - btnRect.right + margin) + 'px';
+        } else if(overflowLeft){
+          // Stick to left margin
+          dd.style.transform = '';
+          dd.style.left = margin + 'px';
+          dd.style.right = '';
+        }
+      }
+      btn && btn.addEventListener('click', function(){
+        dd.classList.toggle('open');
+        if(dd.classList.contains('open')){
+          // slight delay to ensure layout updated
+          setTimeout(repositionDropdown, 0);
+        }
+      });
+      burger && burger.addEventListener('click', function(){
+        mobileNav.classList.toggle('open');
+      });
+      mobileProdukBtn && mobileProdukBtn.addEventListener('click', function(){
+        if(!mobileProdukMenu) return;
+        var show = mobileProdukMenu.style.display === 'none';
+        mobileProdukMenu.style.display = show ? 'block' : 'none';
+      });
+      window.addEventListener('resize', function(){ if(dd && dd.classList.contains('open')) repositionDropdown(); });
+      document.addEventListener('click', function(e){
+        // close desktop dropdown when clicking outside
+        if(dd){
+          var inside = dd.contains(e.target) || (btn && btn.contains(e.target));
+          if(!inside) dd.classList.remove('open');
+        }
+        // close mobile nav when clicking outside
+        if(mobileNav){
+          var insideMobile = mobileNav.contains(e.target) || (burger && burger.contains(e.target));
+          if(!insideMobile) mobileNav.classList.remove('open');
+        }
+      });
     });
   </script>
 </body>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>KeebHaus — Build & Sound Guides</title>
+  <title>KeebHaus — Panduan Rakitan & Suara</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" />
   <link rel="stylesheet" href="css/bootstrap.min.css" />
   <link rel="stylesheet" href="css/all.min.css" />
@@ -15,8 +15,31 @@
     .nav { display:flex; align-items:center; justify-content:space-between; padding:18px 0; }
     .brand { display:flex; align-items:center; gap:12px; font-weight:700; }
     .brand i { color: var(--primary); }
-    .nav a { color: var(--text); text-decoration:none; margin-left:18px; }
-    .nav a:hover { color: var(--primary); }
+    .links { display:flex; align-items:center; gap:24px; }
+      .burger { display:none; align-items:center; gap:8px; padding:8px 10px; border-radius:8px; }
+      .burger i { font-size:20px; }
+      .mobile-nav { position: fixed; top:0; right:0; width: 86vw; max-width: 360px; height:100vh; background: var(--card); box-shadow: var(--shadow); border-left:1px solid #e6edf7; transform: translateX(100%); transition: transform .2s ease; z-index: 100; padding:16px; }
+      .mobile-nav.open { transform: translateX(0); }
+      .mobile-nav .item { display:block; padding:10px 12px; border-radius:8px; color: var(--text); }
+      .mobile-nav .item:hover { background:#eef3ff; color: var(--primary); }
+      .mobile-nav .submenu { margin-top:8px; }
+    .nav a { color: var(--text); text-decoration:none; padding:8px 10px; border-radius:8px; transition: color .15s ease, background .15s ease; }
+    .nav a:hover { color: var(--primary); background:#eef3ff; }
+    .menu { position: relative; }
+    .menu-btn { display:inline-flex; align-items:center; gap:8px; cursor:pointer; padding:8px 10px; border-radius:8px; }
+    .menu-btn:hover { background:#eef3ff; }
+    .dropdown { position:absolute; top: calc(100% + 10px); left:50%; transform:translateX(-50%); z-index:30; background:var(--card); border:1px solid #e6edf7; border-radius:12px; box-shadow: var(--shadow); padding:16px; width:900px; display:none; }
+    .dropdown.open { display:block; }
+    .dropdown .row { display:grid; grid-template-columns: 260px 1fr; gap:16px; }
+    .dropdown .sidebar { display:flex; flex-direction:column; gap:10px; }
+    .dropdown .sidebar .group { background:#f7fafc; border:1px solid #e6edf7; border-radius:10px; padding:10px; }
+    .dropdown .sidebar .group h6 { margin:0 0 8px 0; font-weight:700; color:var(--text); }
+    .chip { display:inline-flex; align-items:center; gap:8px; background:#fff; border:1px solid #e6edf7; border-radius:999px; padding:6px 12px; margin: 6px 8px 0 0; font-size:13px; color:var(--text); white-space:nowrap; }
+    .dropdown .grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; }
+    .dropdown .card { background:#fff; border:1px solid #e6edf7; border-radius:12px; padding:10px; transition: box-shadow .15s ease, transform .15s ease; }
+    .dropdown .card:hover { box-shadow: 0 8px 18px rgba(32,38,53,0.08); transform: translateY(-2px); }
+    .dropdown .card img { width:100%; border-radius:8px; }
+    .dropdown .card .label { margin-top:8px; font-weight:600; color:var(--text); }
     .section-card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding:22px; }
     .guide { background:#fff; border:1px solid #e6edf7; border-radius:12px; padding:16px; }
     .guide h4 { margin-bottom: 8px; }
@@ -25,7 +48,24 @@
     .tip { background:#eef8f4; border:1px solid #d7efe3; color:#0b7f56; padding:10px 12px; border-radius:10px; }
     .grid { display:grid; grid-template-columns: 1fr 1fr; gap:22px; }
     .footer { color: var(--muted); padding: 24px 0; }
-    @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+    @media (max-width: 992px) {
+      .links { gap:16px; }
+      .burger { display:inline-flex; }
+      .links.d-none.d-md-flex { display:none !important; }
+      .grid { grid-template-columns: 1fr 1fr; }
+      .dropdown { width: 94vw; left:50%; transform:translateX(-50%); max-height: 70vh; overflow:auto; }
+      .dropdown .row { grid-template-columns: 1fr; }
+      .dropdown .grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 800px) { 
+      .links { gap:16px; }
+      .grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .links { gap:12px; }
+      .dropdown { width: 96vw; }
+      .dropdown .grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -35,75 +75,199 @@
         <i class="fas fa-keyboard fa-lg"></i>
         <span>KeebHaus</span>
       </div>
+      <button class="burger d-md-none" id="burgerBtn" aria-label="Buka menu"><i class="fas fa-bars"></i></button>
       <div class="links d-none d-md-flex">
-        <a href="keyboard-shop.html">Shop</a>
-        <a href="keyboard-accessories.html">Accessories</a>
-        <a href="keyboard-guides.html">Guides</a>
+        <a href="keyboard-shop.html">Beranda</a>
+        <div class="menu">
+          <div class="menu-btn" id="produkMenuBtn"><span>Produk</span><i class="fas fa-chevron-down"></i></div>
+          <div class="dropdown" id="produkDropdown" aria-label="Menu Produk">
+            <div class="row">
+              <aside class="sidebar">
+                <div class="group">
+                  <h6>Keyboard</h6>
+                  <div>
+                    <span class="chip">Q</span>
+                    <span class="chip">K</span>
+                    <span class="chip">V</span>
+                    <span class="chip">HE Series</span>
+                  </div>
+                </div>
+                <div class="group">
+                  <h6>Mice</h6>
+                  <div>
+                    <span class="chip">M Series</span>
+                    <span class="chip">G Series</span>
+                  </div>
+                </div>
+                <div class="group">
+                  <h6>Tipe</h6>
+                  <div>
+                    <span class="chip"><img src="img/keyboard/Icon-2.4GHz_Wireless.svg" alt="wireless" style="height:16px;"> 2.4 GHz Wireless</span>
+                    <span class="chip"><img src="img/keyboard/Icon-Compact.svg" alt="compact" style="height:16px;"> Compact</span>
+                    <span class="chip"><img src="img/keyboard/Icon-Ergonomic_Layout.svg" alt="ergonomic" style="height:16px;"> Ergonomis</span>
+                    <span class="chip"><img src="img/keyboard/Icon-Full_Metal_ecbfada4-3cea-4956-9eb1-2cd9458601e8.svg" alt="full metal" style="height:16px;"> Full Metal</span>
+                  </div>
+                </div>
+              </aside>
+              <div>
+                <div class="section-card" style="box-shadow:none; border: none; padding:0;">
+                  <h5 style="margin:0 0 8px 0;">Semua Produk</h5>
+                  <div class="grid">
+                    <div class="card">
+                      <img src="img/keyboard/Q6Max-black_f3f6c2e9-5aa0-44d9-a1cc-02bf9f4128e8_400x400.png" alt="100%" />
+                      <div class="label">100%</div>
+                    </div>
+                    <div class="card">
+                      <img src="img/keyboard/K4-Max_400x400.png" alt="96%" />
+                      <div class="label">96%</div>
+                    </div>
+                    <div class="card">
+                      <img src="img/keyboard/K3_Max_400x400.png" alt="75%" />
+                      <div class="label">75%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a href="keyboard-accessories.html">Aksesoris</a>
+        <a href="keyboard-guides.html">Panduan</a>
       </div>
     </nav>
+    <aside class="mobile-nav" id="mobileNav" aria-label="Menu Mobile">
+      <a href="keyboard-shop.html" class="item">Beranda</a>
+      <div>
+        <div class="item" id="mobileProdukBtn">Produk <i class="fas fa-chevron-down" style="float:right"></i></div>
+        <div class="submenu" id="mobileProdukMenu" style="display:none;">
+          <a class="item" href="#">Keyboard</a>
+          <a class="item" href="#">Mice</a>
+          <a class="item" href="#">Aksesoris</a>
+        </div>
+      </div>
+      <a href="keyboard-accessories.html" class="item">Aksesoris</a>
+      <a href="keyboard-guides.html" class="item">Panduan</a>
+    </aside>
 
     <section class="mb-4 section-card">
-      <h2 class="mb-3">Build Guide: First Custom Keyboard</h2>
+      <h2 class="mb-3">Panduan Rakitan: Keyboard Kustom Pertama</h2>
       <div class="guide">
-        <h4>Parts Checklist</h4>
+        <h4>Daftar Komponen</h4>
         <ul class="steps">
-          <li>Case + plate + PCB (hot-swap recommended)</li>
-          <li>Switches (70–90 pcs depending on layout)</li>
-          <li>Keycaps set (profile of your choice)</li>
-          <li>Stabilizers (pre-clipped or screw-in)</li>
-          <li>Cable (USB-C preferred)</li>
+          <li>Casing + plate + PCB (disarankan hot-swap)</li>
+          <li>Switch (70–90 pcs tergantung layout)</li>
+          <li>Set keycaps (profil sesuai pilihan)</li>
+          <li>Stabilizer (pre-clipped atau screw-in)</li>
+          <li>Kabel (lebih baik USB-C)</li>
         </ul>
-        <h4>Assembly Steps</h4>
+        <h4>Langkah Perakitan</h4>
         <ul class="steps">
-          <li>Install stabilizers on the PCB and test fit.</li>
-          <li>Place the plate over PCB then insert switches to lock alignment.</li>
-          <li>Mount the assembly into the case (gasket or screw as needed).</li>
-          <li>Connect via USB and test keys using a key tester site.</li>
-          <li>Install keycaps and do a final functional check.</li>
+          <li>Pasang stabilizer pada PCB dan cek posisi.</li>
+          <li>Letakkan plate di atas PCB lalu pasang switch untuk mengunci alignment.</li>
+          <li>Pasang rakitan ke casing (gasket atau baut sesuai kebutuhan).</li>
+          <li>Sambungkan via USB dan tes tombol dengan situs penguji keyboard.</li>
+          <li>Pasang keycaps dan lakukan pengecekan akhir.</li>
         </ul>
-        <p class="tip"><i class="fas fa-lightbulb"></i> Tip: Test switches in batches to avoid chasing issues later.</p>
+        <p class="tip"><i class="fas fa-lightbulb"></i> Tip: Uji switch per batch untuk menghindari masalah di akhir.</p>
       </div>
     </section>
 
     <section class="mb-4 section-card">
-      <h2 class="mb-3">Sound Tuning: Quick Wins</h2>
+      <h2 class="mb-3">Tuning Suara: Langkah Cepat</h2>
       <div class="grid">
         <div class="guide">
-          <h4>Tape & Foam Mods</h4>
+          <h4>Mod Tape & Foam</h4>
           <ul class="steps">
-            <li>Apply 1–3 layers of painter's tape to PCB back.</li>
-            <li>Add case foam to reduce hollowness and reverb.</li>
-            <li>Use plate foam to tame ping and improve feel.</li>
+            <li>Tempel 1–3 lapis painter's tape di belakang PCB.</li>
+            <li>Tambahkan foam pada casing untuk mengurangi gema/hollow.</li>
+            <li>Gunakan foam plate untuk meredam ping dan meningkatkan feel.</li>
           </ul>
         </div>
         <div class="guide">
-          <h4>Switch & Stabilizer Lube</h4>
+          <h4>Pelumas Switch & Stabilizer</h4>
           <ul class="steps">
-            <li>Lightly lube stems and rails for linears/tactiles.</li>
-            <li>Grease stabilizer wires to remove rattle.</li>
-            <li>Avoid over-lubing clickies to retain their character.</li>
+            <li>Oles tipis pada stem dan rail untuk linear/tactile.</li>
+            <li>Beri grease pada kawat stabilizer untuk menghilangkan rattle.</li>
+            <li>Hindari pelumas berlebihan pada clicky agar karakter tetap terjaga.</li>
           </ul>
         </div>
       </div>
-      <p class="tip mt-3"><i class="fas fa-tools"></i> Recommended: Try our Quartz Linear and Amber Tactile switch kits from Accessories.</p>
+      <p class="tip mt-3"><i class="fas fa-tools"></i> Rekomendasi: Coba kit switch Quartz Linear dan Amber Tactile di halaman Aksesoris.</p>
     </section>
 
     <section class="mb-4 section-card">
-      <h2 class="mb-3">Frequently Asked Questions</h2>
+      <h2 class="mb-3">Pertanyaan Umum</h2>
       <div class="guide">
         <h4>Hot-swap vs Solder?</h4>
-        <p>Hot-swap is beginner-friendly and fast. Soldered PCBs can be cheaper and more durable but require tools and practice.</p>
-        <h4>Best layout for work?</h4>
-        <p>65% or 75% balances compactness with arrow keys and functions. TKL offers full navigation if you need it.</p>
+        <p>Hot-swap ramah pemula dan cepat. PCB solder bisa lebih murah dan tahan lama, namun butuh alat dan latihan.</p>
+        <h4>Layout terbaik untuk kerja?</h4>
+        <p>65% atau 75% seimbang: ringkas dengan tombol panah dan fungsi. TKL menawarkan navigasi lengkap bila dibutuhkan.</p>
       </div>
     </section>
 
     <footer class="footer text-center">
-      <p>© 2025 KeebHaus. Learn, build, and thock on.</p>
+      <p>© 2025 KeebHaus. Belajar, merakit, dan nikmati thock.</p>
     </footer>
   </div>
 
   <script src="js/jquery-3.3.1.min.js"></script>
   <script src="js/materialize.min.js"></script>
+  <script>
+    $(function(){
+      var btn = document.getElementById('produkMenuBtn');
+      var dd = document.getElementById('produkDropdown');
+      function repositionDropdown(){
+        if(!btn || !dd) return;
+        dd.style.left = '50%';
+        dd.style.right = '';
+        dd.style.transform = 'translateX(-50%)';
+        var rect = dd.getBoundingClientRect();
+        var vw = window.innerWidth;
+        var margin = 16;
+        var overflowRight = rect.right + margin > vw;
+        var overflowLeft = rect.left - margin < 0;
+        var btnRect = btn.getBoundingClientRect();
+        if(overflowRight){
+          dd.style.transform = '';
+          dd.style.left = 'auto';
+          dd.style.right = Math.max(0, vw - btnRect.right + margin) + 'px';
+        } else if(overflowLeft){
+          dd.style.transform = '';
+          dd.style.left = margin + 'px';
+          dd.style.right = '';
+        }
+      }
+      btn && btn.addEventListener('click', function(){
+        dd.classList.toggle('open');
+        if(dd.classList.contains('open')) setTimeout(repositionDropdown, 0);
+      });
+      window.addEventListener('resize', function(){ if(dd && dd.classList.contains('open')) repositionDropdown(); });
+      document.addEventListener('click', function(e){
+        if(!dd) return;
+        var inside = dd.contains(e.target) || btn.contains(e.target);
+        if(!inside) dd.classList.remove('open');
+      });
+    });
+  </script>
+  <script>
+    $(function(){
+      var burger = document.getElementById('burgerBtn');
+      var mobileNav = document.getElementById('mobileNav');
+      var mobileProdukBtn = document.getElementById('mobileProdukBtn');
+      var mobileProdukMenu = document.getElementById('mobileProdukMenu');
+      burger && burger.addEventListener('click', function(){ mobileNav.classList.toggle('open'); });
+      mobileProdukBtn && mobileProdukBtn.addEventListener('click', function(){
+        if(!mobileProdukMenu) return;
+        var show = mobileProdukMenu.style.display === 'none';
+        mobileProdukMenu.style.display = show ? 'block' : 'none';
+      });
+      document.addEventListener('click', function(e){
+        if(mobileNav){
+          var insideMobile = mobileNav.contains(e.target) || (burger && burger.contains(e.target));
+          if(!insideMobile) mobileNav.classList.remove('open');
+        }
+      });
+    });
+  </script>
 </body>
 </html>
